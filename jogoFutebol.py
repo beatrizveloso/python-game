@@ -61,12 +61,13 @@ def move_bola():
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
+        score1_img = pygame.image.load("img/" + str(score2) + ".png")
     elif bola_x > 1320:
         bola_x = 617
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
-
+        score2_img = pygame.image.load("img/" + str(score2) + ".png")
 
 def move_jogador():
     global jogador1_y
