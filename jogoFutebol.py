@@ -26,17 +26,23 @@ def draw():
     window.blit(campo,(0,0))
     window.blit(jogador1,(50, jogador1_y))
     window.blit(jogador2,(1150,jogador2_y))
-
     window.blit(bola,(bola_x,bola_y))
 
 def move_bola():
     global bola_x
     global bola_dir
     #Para mover a bola para a direita
-    bola_x+= bola_dir
+    bola_x += bola_dir
 
-    if bola_x < 142:
-        bola_dir *= -1
+    if bola_x < 123:
+        if jogador1_y < bola_y + 23:
+            if jogador1_y + 146 > bola_y:
+                bola_dir *= -1
+    if bola_x > 1100:
+        if jogador2_y < bola_y + 23:
+            if jogador2_y + 146 > bola_y:
+                bola_dir *= -1
+    
 
 def move_jogador():
     global jogador1_y
