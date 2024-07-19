@@ -17,9 +17,9 @@ jogador2_y = 310
 bola = pygame.image.load("img/ball.png")
 menu = pygame.image.load("img/bar.png")
 score1 = 0
-score1_img = pygame.image.load("img/0.png")
+score1_img = pygame.image.load("img/"+str(score1)+ ".png")
 score2 = 0
-score2_img = pygame.image.load("img/0.png")
+score2_img = pygame.image.load("img/"+str(score2)+ ".png")
 #colocar a bolinha para rolar
 bola_x = 617
 bola_y = 337
@@ -39,6 +39,8 @@ def move_bola():
     global bola_y
     global bola_dir
     global bola_dir_y
+    global score1
+    global score2
     #Para mover a bola para a direita
     bola_x += bola_dir
     bola_y += bola_dir_y
@@ -56,16 +58,18 @@ def move_bola():
     elif bola_y <= 0:
         bola_dir_y *= -1
 
-    if bola_x < -50: #Se a bola sair sa tela
+    if bola_x < -50: #Se a bola sair da tela
         bola_x = 617
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
+        score2 += 1
     elif bola_x > 1320:
         bola_x = 617
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
+        score1 += 1
 
 
 def move_jogador():
