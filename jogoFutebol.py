@@ -28,19 +28,17 @@ bola_dir = -8
 bola_dir_y = 8
 def draw():
     #Carregar as imagens
-    if score1 <= 9 or score2 <= 9:
+    if score1 or score2 <= 9:
         window.blit(campo,(0,0))
         window.blit(jogador1,(50, jogador1_y))
         window.blit(jogador2,(1150,jogador2_y))
         window.blit(bola,(bola_x,bola_y))
         window.blit(score1_img,(500,50))
         window.blit(score2_img,(710,50))
-        move_bola()
-        move_jogador()
-        move_jogador2()
+
     else:
         window.blit(win,(300,330))
-        
+    
 
 def move_bola():
     global bola_x
@@ -130,6 +128,9 @@ while loop:
             
             
     draw()
+    move_bola()
+    move_jogador()
+    move_jogador2()
     #quero que atualize sempre quando houver mudança
     pygame.display.update()
 pygame.quit()#para fechar o pygame
