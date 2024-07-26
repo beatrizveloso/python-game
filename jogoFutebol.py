@@ -7,6 +7,7 @@ window = pygame.display.set_mode([1280,720])
 #aplicar o título da janela/display
 pygame.display.set_caption("Futebol SENAI")
 #criar variáveis para as imagens:
+win = pygame.image.load("img/win.png")
 campo = pygame.image.load("img/campo.png")
 jogador1 = pygame.image.load("img/player1.png")
 jogador1_y = 310
@@ -24,15 +25,21 @@ score2_img = pygame.image.load("img/0.png")
 bola_x = 617
 bola_y = 337
 bola_dir = -6
-bola_dir_y = 1
+bola_dir_y = 6
 def draw():
     #Carregar as imagens
-    window.blit(campo,(0,0))
-    window.blit(jogador1,(50, jogador1_y))
-    window.blit(jogador2,(1150,jogador2_y))
-    window.blit(bola,(bola_x,bola_y))
-    window.blit(score1_img,(500,50))
-    window.blit(score2_img,(710,50))
+    if score1 <= 9 or score2 <= 9:
+        window.blit(campo,(0,0))
+        window.blit(jogador1,(50, jogador1_y))
+        window.blit(jogador2,(1150,jogador2_y))
+        window.blit(bola,(bola_x,bola_y))
+        window.blit(score1_img,(500,50))
+        window.blit(score2_img,(710,50))
+        move_bola()
+        move_jogador()
+        move_jogador2()
+    else:
+        window.blit(win,(300,330))
 
 def move_bola():
     global bola_x
@@ -109,9 +116,6 @@ while loop:
             if event.key == pygame.K_s:
                 jogador1_y_movedown = False
     draw()
-    move_bola()
-    move_jogador()
-    move_jogador2()
     #quero que atualize sempre quando houver mudança
     pygame.display.update()
 pygame.quit()#para fechar o pygame
