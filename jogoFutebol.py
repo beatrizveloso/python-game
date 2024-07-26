@@ -13,6 +13,8 @@ jogador1 = pygame.image.load("img/player1.png")
 jogador1_y = 310
 jogador1_y_moveup = False
 jogador1_y_movedown = False
+jogador2_y_moveup = False
+jogador2_y_movedown = False
 jogador2 = pygame.image.load("img/player2.png")
 jogador2_y = 310
 bola = pygame.image.load("img/ball.png")
@@ -28,14 +30,16 @@ bola_dir = -8
 bola_dir_y = 8
 def draw():
     #Carregar as imagens
-    if score1 or score2 <= 9:
+    if score1 <=9 and score2 <= 9:
         window.blit(campo,(0,0))
         window.blit(jogador1,(50, jogador1_y))
         window.blit(jogador2,(1150,jogador2_y))
         window.blit(bola,(bola_x,bola_y))
         window.blit(score1_img,(500,50))
         window.blit(score2_img,(710,50))
-
+        move_bola()
+        move_jogador()
+        move_jogador2()
     else:
         window.blit(win,(300,330))
     
@@ -105,8 +109,21 @@ def move_jogador():
 
 def move_jogador2():
     global jogador2_y
-    jogador2_y = bola_y      
+    #jogador2_y = bola_y   
+    if jogador2_y_moveup:
+        jogador2_y -= 5
+    else:
+        jogador2_y += 0
 
+    if jogador2_y_movedown:
+        jogador2_y += 5
+    else:
+        jogador2_y += 0
+
+    if jogador2_y <= 0:
+        jogador2_y = 0
+    elif jogador2_y >= 575:
+        jogador2_y = 575   
 
 #para manter a janela aberta:
 loop = True
@@ -120,13 +137,19 @@ while loop:
                 jogador1_y_moveup = True
             if event.key == pygame.K_s:
                 jogador1_y_movedown = True
+            if event.key == pygame.K_p:
+                jogador2_y_moveup = True
+            if event.key == pygame.K_l:
+                jogador2_y_movedown = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
                 jogador1_y_moveup = False
             if event.key == pygame.K_s:
                 jogador1_y_movedown = False
-            
-            
+            if event.key == pygame.K_p:
+                jogador2_y_moveup = False
+            if event.key == pygame.K_l:
+                jogador2_y_movedown = False
     draw()
     move_bola()
     move_jogador()
