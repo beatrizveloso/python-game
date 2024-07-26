@@ -7,7 +7,7 @@ window = pygame.display.set_mode([1280,720])
 #aplicar o título da janela/display
 pygame.display.set_caption("Futebol SENAI")
 #criar variáveis para as imagens:
-win = pygame.image.load("img/win.png")
+win = pygame.image.load("img/10.png")
 campo = pygame.image.load("img/campo.png")
 jogador1 = pygame.image.load("img/player1.png")
 jogador1_y = 310
@@ -24,11 +24,11 @@ score2_img = pygame.image.load("img/0.png")
 #colocar a bolinha para rolar
 bola_x = 617
 bola_y = 337
-bola_dir = -6
-bola_dir_y = 6
+bola_dir = -8
+bola_dir_y = 8
 def draw():
     #Carregar as imagens
-    if score1 < 2 or score2 < 2:
+    if score1 <= 9 or score2 <= 9:
         window.blit(campo,(0,0))
         window.blit(jogador1,(50, jogador1_y))
         window.blit(jogador2,(1150,jogador2_y))
