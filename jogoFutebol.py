@@ -7,6 +7,7 @@ window = pygame.display.set_mode([1280,720])
 #aplicar o título da janela/display
 pygame.display.set_caption("Futebol SENAI")
 #criar variáveis para as imagens:
+win = pygame.image.load("img/win.png")
 campo = pygame.image.load("img/campo.png")
 jogador1 = pygame.image.load("img/player1.png")
 jogador1_y = 310
@@ -24,72 +25,90 @@ score2_img = pygame.image.load("img/0.png")
 bola_x = 617
 bola_y = 337
 bola_dir = -6
-bola_dir_y = 1
+bola_dir_y = 6
 def draw():
     #Carregar as imagens
-    window.blit(campo,(0,0))
-    window.blit(jogador1,(50, jogador1_y))
-    window.blit(jogador2,(1150,jogador2_y))
-    window.blit(bola,(bola_x,bola_y))
-    window.blit(score1_img,(500,50))
-    window.blit(score2_img,(710,50))
+    if score1 < 2 or score2 < 2:
+        window.blit(campo,(0,0))
+        window.blit(jogador1,(50, jogador1_y))
+        window.blit(jogador2,(1150,jogador2_y))
+        window.blit(bola,(bola_x,bola_y))
+        window.blit(score1_img,(500,50))
+        window.blit(score2_img,(710,50))
+        move_bola()
+        move_jogador()
+        move_jogador2()
+    else:
+        window.blit(win,(300,330))
+        
 
 def move_bola():
     global bola_x
     global bola_y
     global bola_dir
     global bola_dir_y
+    global score1
+    global score2
+    global score1_img
+    global score2_img
+
     #Para mover a bola para a direita
     bola_x += bola_dir
     bola_y += bola_dir_y
-
+    
     if bola_x < 123:
         if jogador1_y < bola_y + 23:
             if jogador1_y + 146 > bola_y:
                 bola_dir *= -1
+    
     if bola_x > 1100:
         if jogador2_y < bola_y + 23:
             if jogador2_y + 146 > bola_y:
                 bola_dir *= -1
+    
     if bola_y > 685:
         bola_dir_y *= -1
     elif bola_y <= 0:
         bola_dir_y *= -1
 
-    if bola_x < -50: #Se a bola sair sa tela
+    if bola_x < -50: #se a bola sair da tela
         bola_x = 617
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
-        score1_img = pygame.image.load("img/" + str(score2) + ".png")
+        score2 += 1
+        score2_img = pygame.image.load('img/' + str(score2) + ".png")
     elif bola_x > 1320:
         bola_x = 617
         bola_y = 337
         bola_dir *= -1
         bola_dir_y *= -1
-        score2_img = pygame.image.load("img/" + str(score2) + ".png")
+        score1 += 1
+        score1_img = pygame.image.load('img/' + str(score1) + ".png")
+
+
 
 def move_jogador():
-    global jogador1_y
+    global jogador1_y  
     if jogador1_y_moveup:
-        jogador1_y-=5
+        jogador1_y -= 5
     else:
-        jogador1_y_moveup
-        jogador1_y+=0
-    if jogador1_y_movedown:
-        jogador1_y+=5
-    else:
-        jogador1_y_movedown
-        jogador1_y+=0
+        jogador1_y += 0
 
-    if jogador1_y<=0:
+    if jogador1_y_movedown:
+        jogador1_y += 5
+    else:
+        jogador1_y += 0
+
+    if jogador1_y <= 0:
         jogador1_y = 0
     elif jogador1_y >= 575:
         jogador1_y = 575
-    
+
 def move_jogador2():
     global jogador2_y
-    jogador2_y = bola_y
+    jogador2_y = bola_y      
+
 
 #para manter a janela aberta:
 loop = True
@@ -108,10 +127,9 @@ while loop:
                 jogador1_y_moveup = False
             if event.key == pygame.K_s:
                 jogador1_y_movedown = False
+            
+            
     draw()
-    move_bola()
-    move_jogador()
-    move_jogador2()
     #quero que atualize sempre quando houver mudança
     pygame.display.update()
 pygame.quit()#para fechar o pygame
